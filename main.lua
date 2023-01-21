@@ -39,8 +39,8 @@ function showStats(y)
  
   local input = lsc.getAverageElectricInput()
   local output = lsc.getAverageElectricOutput()
-  local stored = lsc.getStoredEU()
-  local max = lsc.getEUMaxStored()
+  local stored = math.abs(lsc.getStoredEU())
+  local max = math.abs(lsc.getEUMaxStored())
   local remain = max - stored
   local net = input - output
   if(lsc.getStoredEU() > 0) then
@@ -99,10 +99,17 @@ function getPassiveLoss()
   return tonumber(trim2)
 end 
  
-function formatNumber(number)
-  if number <= 0 then
+function formatNumber(num)
+  if number < 0 then
     return "0"
   end
+ 
+  local sign = ""
+  if num < 0 then
+    sign = "-"
+  end
+ 
+  number = math.abs(num)
  
   local suffix = {
     {1, ""},
@@ -128,7 +135,7 @@ function formatNumber(number)
   end
  
   result = string.sub(result, 0, string.sub(result, -1) == "0" and -3 or -1)
-  return result .. suffix[suffix.use][2]
+  return sign .. result .. suffix[suffix.use][2]
 end
  
 function formatTick(tick)

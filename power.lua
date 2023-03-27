@@ -104,7 +104,7 @@ function showStats(y)
   gpu.fill(24, y + 10, w, 1, " ")
   gpu.set(2, y + 10, "Total Wireless EU: ")
 
-  local wirelessString = string.sub(info[12], 23)
+  local wirelessString = string.sub(info[13], 23)
   local removeComma = string.gsub(wirelessString, ",", "")
   gpu.set(23, y + 10, formatNumber(tonumber(removeComma)))
 end
